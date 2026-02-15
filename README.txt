@@ -1,28 +1,37 @@
-REMIX DEFAULT WORKSPACE
+# 🛡️ ChainShield Smart Contracts
 
-Remix default workspace is present when:
-i. Remix loads for the very first time 
-ii. A new workspace is created with 'Default' template
-iii. There are no files existing in the File Explorer
+This repository contains the Solidity smart contracts for **Chain-Shield**, a cross-chain liquidation prevention protocol that uses social sentiment to predict and automatically protect user positions from market crashes.
 
-This workspace contains 3 directories:
+## 📦 Deployments
 
-1. 'contracts': Holds three contracts with increasing levels of complexity.
-2. 'scripts': Contains four typescript files to deploy a contract. It is explained below.
-3. 'tests': Contains one Solidity test file for 'Ballot' contract & one JS test file for 'Storage' contract.
+Our core `ChainShield.sol` contract is live and verified on the following testnets:
 
-SCRIPTS
+| Network | Chain ID | Contract Address | Explorer |
+| :------ | :------- | :--------------- | :------- |
+| **Ethereum Sepolia** | `11155111` | `0xF34C09A1941410e87a778518A817BfA62FaEf6bA` | [View on Etherscan](https://sepolia.etherscan.io/address/0xF34C09A1941410e87a778518A817BfA62FaEf6bA) |
+| **Polygon Amoy** | `80002` | `[YOUR AMOY CONTRACT ADDRESS]` | [View on Polygonscan](https://amoy.polygonscan.com/address/[YOUR AMOY CONTRACT ADDRESS]) |
 
-The 'scripts' folder has two typescript files which help to deploy the 'Storage' contract using 'ethers.js' libraries.
+## 📄 Contract ABI
 
-For the deployment of any other contract, just update the contract name from 'Storage' to the desired contract and provide constructor arguments accordingly 
-in the file `deploy_with_ethers.ts`
+The Application Binary Interface (ABI) required for frontend interaction can be found here: [`/abis/ChainShield.json`](./abis/ChainShield.json)
 
-In the 'tests' folder there is a script containing Mocha-Chai unit tests for 'Storage' contract.
+*(**Action:** You will need to create the `abis` folder and the `ChainShield.json` file next.)*
 
-To run a script, right click on file name in the file explorer and click 'Run'. Remember, Solidity file must already be compiled.
-Output from script will appear in remix terminal.
+## 🛠️ Technology Stack
 
-Please note, require/import is supported in a limited manner for Remix supported modules.
-For now, modules supported by Remix are ethers, swarmgw, chai, multihashes, remix and hardhat only for hardhat.ethers object/plugin.
-For unsupported modules, an error like this will be thrown: '<module_name> module require is not supported by Remix IDE' will be shown.
+- **Language:** Solidity `^0.8.19`
+- **Development Environment:** Remix IDE
+- **Networks:** Ethereum Sepolia, Polygon Amoy
+
+## ✨ Key Features
+
+- **On-Chain Protection Records:** Every "Golden Apple" activation is stored immutably.
+- **Cross-Chain Ready:** Architecture supports monitoring and recording on multiple EVM chains.
+- **Verifiable:** All events are public and can be verified independently on block explorers.
+
+## 🤝 How to Integrate (for Frontend Team)
+
+1.  Use the contract ABI from the link above.
+2.  Instantiate the contract in your web app using `ethers.js` or `web3.js` with one of the addresses from the deployments table.
+3.  Call the `recordProtection()` function to log events.
+4.  Listen for `GoldenAppleActivated` events to update the UI in real-time.
